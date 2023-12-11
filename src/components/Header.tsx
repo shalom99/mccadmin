@@ -11,10 +11,9 @@ const Header: FC<HeaderProps> = ({}) => {
       <HeaderCombo />
       <div className="flex gap-x-5">
         <Link href="/">Overview</Link>
-        <Link href="/">Orders</Link>
-        <Link href="/">Customers</Link>
-        <Link href="/">Products</Link>
-        <Link href="/">Portfolio</Link>
+        <Link href="/orders">Orders</Link>
+        <Link href="/products">Products</Link>
+        <Link href="/portfolio">Portfolio</Link>
         <Link href="/">Settings</Link>
       </div>
       <ProfileAvatar />

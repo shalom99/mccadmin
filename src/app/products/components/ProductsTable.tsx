@@ -22,11 +22,14 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
       <TableCaption>A list of products in store</TableCaption>
       <TableHeader>
         <TableRow>
+        <TableHead className=" flex gap-x-2 items-center justify-start">
+        <input type="checkbox" />
+          Select All</TableHead>
           <TableHead className="w-[100px]">Item #</TableHead>
           <TableHead>Name</TableHead>
           <TableHead>Description</TableHead>
           <TableHead className="text-right">Price</TableHead>
-          <TableHead className="text-right">Quantity in stock</TableHead>
+          <TableHead className="text-center">Quantity in stock</TableHead>
           <TableHead className="text-right">Image</TableHead>
           <TableHead className="text-center">Actions</TableHead>
         </TableRow>
@@ -35,11 +38,14 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
         {products.map((item: any, index: number) => (
           <>
             <TableRow>
+            <TableCell>
+              <input type="checkbox" />
+              </TableCell>
               <TableCell className="font-medium">{index + 1}</TableCell>
               <TableCell>{item.product_name}</TableCell>
               <TableCell>{item.description}</TableCell>
               <TableCell className="text-right">{item.price}</TableCell>
-              <TableCell className="text-right">
+              <TableCell className="text-center">
                 {item.quantity_in_stock}
               </TableCell>
               <TableCell className="text-right">{item.image_url}</TableCell>
