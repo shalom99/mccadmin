@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Cart {
+  cart_id     Int       @id @default(autoincrement()) @db.UnsignedInt
+  customer_id Int       @db.UnsignedInt
+  product_id  Int       @db.UnsignedInt
+  quantity    Int
+  Customers   Customers @relation(fields: [customer_id], references: [customer_id], onUpdate: Restrict, map: "cart_customer_id_foreign")
+  Products    Products  @relation(fields: [product_id], references: [product_id], onUpdate: Restrict, map: "cart_product_id_foreign")
+
+  @@index([customer_id], map: "cart_customer_id_foreign")
+  @@index([product_id], map: "cart_product_id_foreign")
+}
+
+model Categories {
+  category_id   Int        @id @default(autoincrement()) @db.UnsignedInt
+  category_name String     @db.VarChar(255)
+  Products      Products[]
+}
+
+model Customers {
+  customer_id  Int       @id @default(autoincrement()) @db.UnsignedInt
+  first_name   String    @db.Char(255)
+  last_name    String    @db.Char(255)
+  email        String    @db.VarChar(255)
+  password     String    @db.VarChar(255)
+  address      String    @db.VarChar(255)
+  phone_number String    @db.VarChar(255)
+  Cart         Cart[]
+  Orders       Orders?
+  Reviews      Reviews[]
+}
+
+model Order_Items {
+  order_item_id Int      @id @default(autoincrement()) @db.UnsignedInt
+  order_id      Int      @db.UnsignedInt
+  product_id    Int      @db.UnsignedInt
+  quantity      Int
+  subtotal      Decimal  @db.Decimal(10, 2)
+  Orders        Orders   @relation(fields: [order_id], references: [order_id], onUpdate: Restrict, map: "order_items_order_id_foreign")
+  Products      Products @relation(fields: [product_id], references: [product_id], onUpdate: Restrict, map: "order_items_product_id_foreign")
+
+  @@index([order_id], map: "order_items_order_id_foreign")
+  @@index([product_id], map: "order_items_product_id_foreign")
+}
+
+model Orders {
+  order_id     Int           @id @default(autoincrement()) @db.UnsignedInt
+  customer_id  Int           @db.UnsignedInt
+  order_date   DateTime      @db.DateTime(0)
+  total_amount Decimal       @db.Decimal(10, 2)
+  status       String        @db.VarChar(255)
+  Order_Items  Order_Items[]
+  Customers    Customers     @relation(fields: [order_id], references: [customer_id], onUpdate: Restrict, map: "orders_order_id_foreign")
+}
+
+model Products {
+  product_id        Int           @id @default(autoincrement()) @db.UnsignedInt
+  product_name      String        @db.VarChar(255)
+  description       String        @db.VarChar(255)
+  price             Decimal       @db.Decimal(10, 2)
+  quantity_in_stock Int           @db.UnsignedInt
+  category_id       Int           @db.UnsignedInt
+  image_url         String        @db.VarChar(255)
+  Cart              Cart[]
+  Order_Items       Order_Items[]
+  Categories        Categories    @relation(fields: [category_id], references: [category_id], onUpdate: Restrict, map: "products_category_id_foreign")
+  Reviews           Reviews[]
+
+  @@index([category_id], map: "products_category_id_foreign")
+}
+
+model Reviews {
+  review_id   Int       @id @default(autoincrement()) @db.UnsignedInt
+  product_id  Int       @db.UnsignedInt
+  customer_id Int       @db.UnsignedInt
+  rating      Int       @db.SmallInt
+  comment     String    @db.VarChar(255)
+  date_posted DateTime  @db.DateTime(0)
+  Customers   Customers @relation(fields: [customer_id], references: [customer_id], onUpdate: Restrict, map: "reviews_customer_id_foreign")
+  Products    Products  @relation(fields: [product_id], references: [product_id], onUpdate: Restrict, map: "reviews_product_id_foreign")
+
+  @@index([customer_id], map: "reviews_customer_id_foreign")
+  @@index([product_id], map: "reviews_product_id_foreign")
+}
