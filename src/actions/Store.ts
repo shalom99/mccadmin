@@ -1,6 +1,7 @@
 'use server'
 
 import { prisma } from "@/lib/prismadb"
+import { revalidatePath } from "next/cache";
 
 export async function getProducts() {
     const products = await prisma.products.findMany()
@@ -8,8 +9,15 @@ export async function getProducts() {
     return products;
 }
 
+
+
 export async function updateProduct(newProductData: any){
 
+    const product = await prisma.products.findUnique({
+        where: {
+            product_id: newProductData.product_id
+        }
+    })
 
 
     const setUppdateProduct = await prisma.products.update({
@@ -27,3 +35,21 @@ export async function updateProduct(newProductData: any){
 
 
 }
+
+export async function deleteProduct(productId: number){
+
+    try{
+        await prisma.products.delete({
+            where: {
+                product_id:  productId
+            }
+        })
+
+        revalidatePath('/products')
+    }catch(err){
+        console.log("Error Deleting")
+    }
+
+
+}
+

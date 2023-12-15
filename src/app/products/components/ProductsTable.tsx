@@ -21,6 +21,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import EditProductDialog from "./EditProductDialog";
+import { deleteProduct } from "@/actions/Store";
+import DeleteProductDialog from "./DeleteProductDialog";
 
 type productType = {
   product_id: number,
@@ -40,8 +42,10 @@ type ProductsTableProps = {
 
 const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
 //   console.log(products[0]);
-  const [selectedProduct, setSelectedProduct ] = useState(products[0])
-  const [showDialog, setShowDialog] = useState(true) 
+  const [selectedProduct, setSelectedProduct ] = useState({})
+  const [showEditDialog, setShowEditDialog] = useState(false) 
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false) 
+
     console.log(selectedProduct)
   return (
     <Dialog>
@@ -69,7 +73,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
                 <TableCell>
                   <input type="checkbox" />
                 </TableCell>
-                <TableCell className="font-medium">{index + 1}</TableCell>
+                <TableCell className="font-medium">{item.product_id}</TableCell>
                 <TableCell>{item.product_name}</TableCell>
                 <TableCell>{item.description}</TableCell>
                 <TableCell className="text-right">${item.price}</TableCell>
@@ -79,11 +83,12 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
                 <TableCell className="text-right">{item.image_url}</TableCell>
                 <TableCell className="">
                   <div className="flex items-center justify-center gap-x-2">
-                    <button className="" onClick={(e) => {setShowDialog(true); setSelectedProduct(item)}}>
+                    <button className="" onClick={(e) => {setShowEditDialog(true); setSelectedProduct(item)}}>
                     <MdModeEdit size="25" />
                     </button>
-
-                    <MdDeleteOutline size="25" />
+                    <button onClick={(e) => deleteProduct(item.product_id) } >
+                    <MdDeleteOutline size="25"  />
+                    </button>
                   </div>
                 </TableCell>
               </TableRow>
@@ -92,9 +97,11 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
         </TableBody>
       </Table>
 
-      {showDialog && <EditProductDialog product={selectedProduct} setShowDialog={setShowDialog} setSelectedProduct={setSelectedProduct}/>}
+      {showEditDialog && <EditProductDialog product={selectedProduct} setShowDialog={setShowEditDialog} setSelectedProduct={setSelectedProduct}/>}
+
+      {showEditDialog && <DeleteProductDialog product={selectedProduct} setShowDialog={setShowEditDialog} setSelectedProduct={setSelectedProduct}/>}
                
-            <p>{JSON.stringify(selectedProduct)}</p>
+            {/* <p>{JSON.stringify(selectedProduct)}</p> */}
 
       <DialogTrigger>open</DialogTrigger>
 
