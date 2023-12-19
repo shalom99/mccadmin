@@ -21,7 +21,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import EditProductDialog from "./EditProductDialog";
-import { deleteProduct } from "@/actions/Store";
+
 import DeleteProductDialog from "./DeleteProductDialog";
 
 type productType = {
@@ -57,7 +57,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
               <input type="checkbox" />
               Select All
             </TableHead>
-            <TableHead className="w-[100px]">Item #</TableHead>
+            <TableHead className="w-[100px]">Item ID #</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Description</TableHead>
             <TableHead className="text-right">Price</TableHead>
@@ -83,11 +83,11 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
                 <TableCell className="text-right">{item.image_url}</TableCell>
                 <TableCell className="">
                   <div className="flex items-center justify-center gap-x-2">
-                    <button className="" onClick={(e) => {setShowEditDialog(true); setSelectedProduct(item)}}>
-                    <MdModeEdit size="25" />
+                    <button onClick={(e) => {setShowEditDialog(true); setSelectedProduct(item)}} className="group">
+                    <MdModeEdit size="25" className="group-hover:scale-125 duration-500"/>
                     </button>
-                    <button onClick={(e) => deleteProduct(item.product_id) } >
-                    <MdDeleteOutline size="25"  />
+                    <button onClick={(e) => {setShowDeleteDialog(true); setSelectedProduct(item) }} className="group" >
+                    <MdDeleteOutline size="25" className="group-hover:scale-125 duration-500"  />
                     </button>
                   </div>
                 </TableCell>
@@ -99,7 +99,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
 
       {showEditDialog && <EditProductDialog product={selectedProduct} setShowDialog={setShowEditDialog} setSelectedProduct={setSelectedProduct}/>}
 
-      {showEditDialog && <DeleteProductDialog product={selectedProduct} setShowDialog={setShowEditDialog} setSelectedProduct={setSelectedProduct}/>}
+      {showDeleteDialog && <DeleteProductDialog product={selectedProduct} setShowDialog={setShowDeleteDialog} setSelectedProduct={setSelectedProduct}/>}
                
             {/* <p>{JSON.stringify(selectedProduct)}</p> */}
 

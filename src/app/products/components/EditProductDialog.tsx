@@ -18,17 +18,21 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
 
   return (
     <div className="fixed inset-0  flex items-center justify-center z-50 ">
-      <div className="w-[500px] bg-white border flex flex-col">
+      <div className="w-[500px] bg-white border flex flex-col rounded-lg">
         <div
           id="dialogHeader"
-          className="w-full flex justify-between border-b p-2"
+          className="w-full flex justify-end p-2"
         >
-          <p>Item #</p>
-          <button onClick={closeDialog}>
-            <MdClose size={25} />
+   
+          <button onClick={closeDialog} >
+            <MdClose size={25} className="border rounded-xl p-1 hover:bg-black hover:text-white duration-500" />
           </button>
         </div>
         <div id="dialogBody" className="flex flex-col py-5 px-5 gap-y-5">
+        <div className="flex gap-x-5">
+            <label htmlFor="">Item ID #:</label>
+    <p>{product.product_id}</p>
+          </div>
           <div className="flex gap-x-5">
             <label htmlFor="">Name:</label>
             <input
