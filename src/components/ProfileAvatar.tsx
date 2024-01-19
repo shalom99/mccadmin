@@ -1,3 +1,5 @@
+'use client'
+
 import { FC } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -13,11 +15,16 @@ const ProfileAvatar: FC<ProfileAvatarProps> = ({}) => {
     <Popover>
       <PopoverTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src="" />
           <AvatarFallback>MCI</AvatarFallback>
         </Avatar>
       </PopoverTrigger>
-      <PopoverContent>Place content for the popover here.</PopoverContent>
+      <PopoverContent>
+        <div className="flex flex-col">
+      
+          <button onClick={() => console.log("signout")}>Log out</button>
+        </div>
+      </PopoverContent>
     </Popover>
   );
 };

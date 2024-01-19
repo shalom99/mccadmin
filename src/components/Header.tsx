@@ -7,9 +7,10 @@ type HeaderProps = {};
 
 const Header: FC<HeaderProps> = ({}) => {
   return (
-    <header className="flex border items-center justify-between py-2 px-5">
+    <header className="flex justify-center">
+      <div className="w-[1536px] flex items-center justify-between py-2 px-5 border-2 rounded-lg">
       <HeaderCombo />
-      <div className="flex gap-x-5">
+      <div className=" flex gap-x-5">
         <Link href="/">Overview</Link>
         <Link href="/orders">Orders</Link>
         <Link href="/products">Products</Link>
@@ -17,6 +18,7 @@ const Header: FC<HeaderProps> = ({}) => {
         <Link href="/">Settings</Link>
       </div>
       <ProfileAvatar />
+      </div>
     </header>
   );
 };
