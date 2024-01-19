@@ -22,7 +22,7 @@ const ProfileAvatar: FC<ProfileAvatarProps> = ({}) => {
       <PopoverContent>
         <div className="flex flex-col">
       
-          <button onClick={() => console.log("signout")}>Log out</button>
+          <button onClick={() => console.log("signout")} className="cursor-not-allowed">Log out</button>
         </div>
       </PopoverContent>
     </Popover>

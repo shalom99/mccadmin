@@ -104,7 +104,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({}) => {
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-x-2">
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src="#" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col font-bold">
@@ -121,7 +121,7 @@ const DashboardCards: FC<DashboardCardsProps> = ({}) => {
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-x-2">
                 <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src="#" />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col font-bold">
