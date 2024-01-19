@@ -17,7 +17,7 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
     const [mockProduct, setMockProduct] = useState(product) 
 
   return (
-    <div className="fixed inset-0  flex items-center justify-center z-50 ">
+    <div className="fixed inset-0  flex items-center justify-center z-50 backdrop-blur-sm ">
       <div className="w-[500px] bg-white border flex flex-col rounded-lg">
         <div
           id="dialogHeader"

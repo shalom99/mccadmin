@@ -50,7 +50,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
   return (
     <Dialog>
       <Table>
-        <TableCaption>A list of products in store</TableCaption>
+      
         <TableHeader>
           <TableRow>
             <TableHead className=" flex gap-x-2 items-center justify-start">

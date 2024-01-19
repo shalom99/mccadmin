@@ -5,8 +5,9 @@ import { MdAdd } from "react-icons/md";
 export default async function ProductsPage({}) {
   const getProduct = await getProducts();
 
+
   return (
-    <div className="flex justify-center py-10 px-10">
+    <div className="flex justify-center pt-10 px-10">
       <div className="w-[1303px] flex flex-col gap-y-5">
         <h1 className="text-3xl font-semibold">Products</h1>
         <ProductsTable products={getProduct} />
