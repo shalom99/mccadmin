@@ -15,7 +15,7 @@ const Header: FC<HeaderProps> = ({}) => {
         <Link href="/orders">Orders</Link>
         <Link href="/products">Products</Link>
         <Link href="/portfolio">Portfolio</Link>
-        <Link href="/">Settings</Link>
+        {/* <Link href="/">Settings</Link> */}
       </div>
       <ProfileAvatar />
       </div>
