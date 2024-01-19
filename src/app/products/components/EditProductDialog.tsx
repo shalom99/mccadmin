@@ -28,53 +28,53 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
             <MdClose size={25} className="border rounded-xl p-1 hover:bg-black hover:text-white duration-500" />
           </button>
         </div>
-        <div id="dialogBody" className="flex flex-col py-5 px-5 gap-y-5">
+        <div id="dialogBody" className="flex flex-col pb-2 px-5 gap-y-2">
         <div className="flex gap-x-5">
-            <label htmlFor="">Item ID #:</label>
-    <p>{product.product_id}</p>
+            <label htmlFor="" className="text-sm">Item ID #:</label>
+    <p className="text-sm">{product.product_id}</p>
           </div>
           <div className="flex gap-x-5">
-            <label htmlFor="">Name:</label>
+            <label htmlFor="" className="text-sm">Name:</label>
             <input
               type="text"
               value={mockProduct.product_name}
-              className="border"
+              className="border rounded-lg pl-2 text-sm"
               onChange={(e) => setMockProduct({...mockProduct, product_name: e.target.value})}
             />
           </div>
           <div className="flex gap-x-5">
-            <label htmlFor="">Description:</label>
-            <input type="text" value={mockProduct.description} className="border" 
+            <label htmlFor="" className="text-sm">Description:</label>
+            <input type="text" value={mockProduct.description} className="border rounded-lg pl-2 text-sm" 
             onChange={(e) => setMockProduct({...mockProduct, description: e.target.value})}
             />
           </div>
           <div className="flex gap-x-5">
             <div className="w-[50%] flex items-center gap-x-5">
-              <label htmlFor="">Price:</label>
+              <label htmlFor="" className="text-sm">Price:</label>
               <input
                 type="number"
                 value={mockProduct.price}
                 onChange={(e) => setMockProduct({...mockProduct, price: e.target.value})}
-                className="border w-[50%]"
+                className="border w-[50%] rounded-lg pl-2 text-sm"
               />
             </div>
             <div className="w-[50%] flex items-center gap-x-5">
-              <label htmlFor="">Stock:</label>
+              <label htmlFor="" className="text-sm">Stock:</label>
               <input
                 type="number"
                 value={mockProduct.quantity_in_stock}
                 onChange={(e) => setMockProduct({...mockProduct, quantity_in_stock: e.target.value})}
-                className="border w-[50%]"
+                className="border w-[50%] rounded-lg pl-2 text-sm"
               />
             </div>
           </div>
 
-          <div className="flex gap-x-5">
+          <div className="flex gap-x-5 ">
             <div>
          
-              <label htmlFor="">Image:</label>
-              <img src="" alt="" className="border w-[100px] h-[100px]" />
-              <input type="file" />
+              <label htmlFor="" className="text-sm">Image:</label>
+              <img src="" alt="" className="border w-[100px] h-[100px] my-2" />
+              <input type="file" className="text-sm" />
             </div>
           </div>
         </div>
@@ -82,11 +82,11 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
           id="dialogFooter"
           className="pb-10 px-5 flex justify-center gap-x-5"
         >
-          <button className="bg-green-700 py-2 px-5 rounded-xl text-white">
+          <button className="border-2 border-green-700 py-1 px-2 rounded-xl text-green-700 text-sm hover:text-white hover:bg-green-700 hover:scale-110 duration-500">
             Save
           </button>
           <button
-            className="bg-red-700 py-2 px-5 rounded-xl text-white"
+            className="border-2 border-red-700 py-1 px-2 rounded-xl text-red-700 text-sm hover:text-white hover:bg-red-700 hover:scale-110 duration-500"
             onClick={closeDialog}
           >
             Close

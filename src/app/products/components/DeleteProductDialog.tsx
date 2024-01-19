@@ -27,18 +27,18 @@ const DeleteProductDialog: FC<DeleteProductDialogProps> = ({
             />
           </button>
         </div>
-        <div id="dialogBody" className="flex flex-col px-5 gap-y-5">
-          <p className="text-center py-3 text-sm font-bold">
+        <div id="dialogBody" className="flex flex-col gap-y-2">
+          <p className="text-center py-2 text-sm font-bold">
             Are you sure you want to delete the following products?
           </p>
           <p className="text-center text-sm">Product ID #: {product.product_id}</p>
         </div>
         <div
           id="dialogFooter"
-          className="pt-5 pb-10 px-5 flex justify-center gap-x-5"
+          className="pt-3 pb-5 flex justify-center gap-x-5"
         >
           <button
-            className="text-sm border border-red-700 text-red-700  hover:bg-red-700 py-1 px-3 rounded-xl hover:text-white duration-500"
+            className="text-sm border border-red-700 text-red-700  hover:bg-red-700 py-1 px-2 rounded-xl hover:text-white hover:scale-110 duration-500"
             onClick={handleDeleteProduct}
           >
             Delete
