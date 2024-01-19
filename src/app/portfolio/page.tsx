@@ -22,7 +22,7 @@ import {
 export default function PortfolioPage() {
   return (
     <div className="w-full flex justify-center">
-      <div className="w-[1303px] pt-5 flex flex-col gap-y-10">
+      <div className="w-[1303px] pt-10 flex flex-col gap-y-10">
         <p className="text-3xl font-semibold">Portfolio</p>
 
         <div className="w-full flex gap-x-5">
