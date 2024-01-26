@@ -1,6 +1,25 @@
+import { prisma } from "@/lib/prismadb";
 import ProductsTable from "./components/ProductsTable";
-import { getProducts } from "@/actions/Store";
+
 import { MdAdd } from "react-icons/md";
+
+
+function convertPricesToString(productsArray: any) {
+  for (let i = 0; i < productsArray.length; i++) {
+    productsArray[i].price = productsArray[i].price.toFixed(2);
+  }
+  return productsArray;
+}
+
+
+async function getProducts(){
+  const products =  await prisma.products.findMany();
+
+  const newProducts = await convertPricesToString(products);
+
+  return newProducts;
+
+}
 
 export default async function ProductsPage({}) {
   const getProduct = await getProducts();

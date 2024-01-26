@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prismadb";
 import { revalidatePath } from "next/cache";
 
 
-
 function convertPricesToString(productsArray: any) {
   for (let i = 0; i < productsArray.length; i++) {
     productsArray[i].price = productsArray[i].price.toFixed(2);
