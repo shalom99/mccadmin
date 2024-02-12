@@ -3,46 +3,59 @@ import { FC, useState } from "react";
 import { MdClose } from "react-icons/md";
 
 type AddProductDialogProps = {
-  product: any;
-  setShowDialog: (show: boolean) => void;
-  setSelectedProduct: (set: {}) => void;
+  showAddDialog: boolean;
+  setShowAddDialog: (showAddDialog: boolean) => void;
 };
 
 const AddProductDialog: FC<AddProductDialogProps> = ({
-  product,
-  setShowDialog,
-  setSelectedProduct,
+  showAddDialog,
+  setShowAddDialog,
 }) => {
+  if (!showAddDialog) {
+    return null;
+  }
 
-    const [newProduct, setNewProduct] = useState({}) 
-
+  const [productDetails, setProductDetails] = useState({
+    name: "",
+    description: "",
+    price: "",
+    stock: 0,
+    image: "",
+  });
   return (
     <div className="fixed inset-0  flex items-center justify-center z-50 backdrop-blur-sm">
-      <div className="w-[500px] bg-white border flex flex-col">
+      <div className="w-[500px] bg-white border flex flex-col rounded-lg">
         <div
           id="dialogHeader"
           className="w-full flex justify-between border-b p-2"
         >
-          <p>Item #</p>
+          <p className="font-bold">Add Product</p>
           <button onClick={closeDialog}>
             <MdClose size={25} />
           </button>
         </div>
-        <div id="dialogBody" className="flex flex-col py-5 px-5 gap-y-5">
+        <div id="dialogBody" className="flex flex-col py-5 px-5 gap-y-5 text-sm">
           <div className="flex gap-x-5">
             <label htmlFor="">Name:</label>
             <input
               type="text"
-             
-              className="border"
-      
+              className="border pl-2 rounded-lg"
+              onChange={(e) => {
+                setProductDetails({ ...productDetails, name: e.target.value });
+              }}
             />
           </div>
           <div className="flex gap-x-5">
             <label htmlFor="">Description:</label>
-            <input type="text" 
-            className="border" 
-          
+            <input
+              type="text"
+              className="border pl-2 rounded-lg"
+              onChange={(e) => {
+                setProductDetails({
+                  ...productDetails,
+                  description: e.target.value,
+                });
+              }}
             />
           </div>
           <div className="flex gap-x-5">
@@ -50,56 +63,85 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
               <label htmlFor="">Price:</label>
               <input
                 type="number"
-               
-              
-                className="border w-[50%]"
+                className="border w-[50%] pl-2 rounded-lg"
+                onChange={(e) => {
+                  setProductDetails({
+                    ...productDetails,
+                    price: e.target.value,
+                  });
+                }}
               />
             </div>
             <div className="w-[50%] flex items-center gap-x-5">
               <label htmlFor="">Stock:</label>
               <input
                 type="number"
-             
-                className="border w-[50%]"
+                className="border w-[50%] pl-2 rounded-lg"
+                onChange={(e) => {
+                  setProductDetails({
+                    ...productDetails,
+                    stock: parseInt(e.target.value),
+                  });
+                }}
               />
             </div>
           </div>
 
           <div className="flex gap-x-5">
             <div>
-         
               <label htmlFor="">Image:</label>
-              <img src="" alt="" className="border w-[100px] h-[100px]" />
-              <input type="file" />
+
+              <input type="file" className="ml-2" />
             </div>
           </div>
         </div>
         <div
           id="dialogFooter"
-          className="pb-10 px-5 flex justify-center gap-x-5"
+          className="pb-5 px-5 flex justify-center gap-x-5"
         >
-          <button className="bg-green-700 py-2 px-5 rounded-xl text-white">
-            Save
+          <button
+            onClick={() => {
+              console.log("Add Product");
+            }}
+            className="border-2 border-green-700 py-1 px-2 rounded-xl text-green-700 text-sm hover:text-white hover:bg-green-700 hover:scale-110 duration-500"
+          >
+            Add Product
           </button>
           <button
-            className="bg-red-700 py-2 px-5 rounded-xl text-white"
+            className="border-2 border-red-700 py-1 px-2 rounded-xl text-red-700 text-sm hover:text-white hover:bg-red-700 hover:scale-110 duration-500"
             onClick={closeDialog}
           >
             Close
           </button>
         </div>
+        {/* <p>
+          {JSON.stringify(productDetails)}
+        </p> */}
       </div>
     </div>
   );
 
-  function updateProduct(){
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    try {
+      await fetch('/api/add-product', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({productDetails})
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 
   function closeDialog() {
-    setSelectedProduct({});
-    setShowDialog(false);
+    setShowAddDialog(false);
   }
 };
 
-export default AddProductDialog
+export default AddProductDialog;
