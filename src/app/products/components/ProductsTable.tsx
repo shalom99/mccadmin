@@ -42,15 +42,15 @@ type ProductsTableProps = {
 
 const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
 //   console.log(products[0]);
+
   const [selectedProduct, setSelectedProduct ] = useState({})
   const [showEditDialog, setShowEditDialog] = useState(false) 
   const [showDeleteDialog, setShowDeleteDialog] = useState(false) 
 
-    console.log(selectedProduct)
+    
   return (
     <Dialog>
       <Table>
-      
         <TableHeader>
           <TableRow>
             <TableHead className=" flex gap-x-2 items-center justify-start">
@@ -69,7 +69,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
         <TableBody>
           {products.map((item: productType, index: number) => (
             <>
-              <TableRow>
+              <TableRow key={item.product_id}>
                 <TableCell>
                   <input type="checkbox" />
                 </TableCell>

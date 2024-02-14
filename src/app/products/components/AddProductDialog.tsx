@@ -11,10 +11,6 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
   showAddDialog,
   setShowAddDialog,
 }) => {
-  if (!showAddDialog) {
-    return null;
-  }
-
   const [productDetails, setProductDetails] = useState({
     name: "",
     description: "",
@@ -22,6 +18,14 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
     stock: 0,
     image: "",
   });
+
+
+
+  if (!showAddDialog) {
+    return null;
+  }
+
+
   return (
     <div className="fixed inset-0  flex items-center justify-center z-50 backdrop-blur-sm">
       <div className="w-[500px] bg-white border flex flex-col rounded-lg">
@@ -122,22 +126,22 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
   );
 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
     
-    try {
-      await fetch('/api/add-product', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({productDetails})
-      })
-    } catch (error) {
-      console.log(error)
-    }
+  //   try {
+  //     await fetch('/api/add-product', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({productDetails})
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
     
-  }
+  // }
 
   function closeDialog() {
     setShowAddDialog(false);
