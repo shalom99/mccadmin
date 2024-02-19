@@ -50,18 +50,25 @@ export async function updateProduct(newProductData: any) {
     },
   });
 
-  const setUppdateProduct = await prisma.products.update({
-    where: {
-      product_id: newProductData.product_id,
-    },
-    data: {
-      product_name: newProductData.product_name,
-      description: newProductData.description,
-      price: newProductData.price,
-      quantity_in_stock: newProductData.quantity_in_stock,
-      image_url: newProductData.image_url,
-    },
-  });
+  try {
+    const setUppdateProduct = await prisma.products.update({
+      where: {
+        product_id: newProductData.product_id,
+      },
+      data: {
+        product_name: newProductData.product_name,
+        description: newProductData.description,
+        price: newProductData.price,
+        quantity_in_stock: newProductData.quantity_in_stock,
+        image_url: newProductData.image_url,
+      },
+    });
+    revalidatePath("/products");
+  }catch(e){
+    console.log("Error updating", e);
+  }
+
+
 }
 
 export async function deleteProduct(productId: number) {
@@ -73,6 +80,6 @@ export async function deleteProduct(productId: number) {
     });
     revalidatePath("/products");
   } catch (err) {
-    console.log("Error Deleting");
+    console.log("Error Deleting", err);
   }
 }

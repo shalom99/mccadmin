@@ -1,4 +1,5 @@
 "use client";
+import { updateProduct } from "@/actions/ProductStore";
 import { FC, useState } from "react";
 import { MdClose } from "react-icons/md";
 
@@ -82,7 +83,13 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
           id="dialogFooter"
           className="pb-10 px-5 flex justify-center gap-x-5"
         >
-          <button className="border-2 border-green-700 py-1 px-2 rounded-xl text-green-700 text-sm hover:text-white hover:bg-green-700 hover:scale-110 duration-500">
+          <button onClick={() => {
+            updateProduct(mockProduct)
+            setSelectedProduct({})
+            setShowDialog(false)
+   
+          }} 
+          className="border-2 border-green-700 py-1 px-2 rounded-xl text-green-700 text-sm hover:text-white hover:bg-green-700 hover:scale-110 duration-500">
             Save
           </button>
           <button
@@ -96,9 +103,7 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
     </div>
   );
 
-  function updateProduct(){
 
-  }
 
   function closeDialog() {
     setSelectedProduct({});
