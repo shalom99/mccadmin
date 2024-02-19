@@ -43,6 +43,7 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
             <label htmlFor="">Name:</label>
             <input
               type="text"
+              value={productDetails.name}
               className="border pl-2 rounded-lg"
               onChange={(e) => {
                 setProductDetails({ ...productDetails, name: e.target.value });
@@ -53,6 +54,7 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
             <label htmlFor="">Description:</label>
             <input
               type="text"
+              value={productDetails.description}
               className="border pl-2 rounded-lg"
               onChange={(e) => {
                 setProductDetails({
@@ -67,6 +69,7 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
               <label htmlFor="">Price:</label>
               <input
                 type="number"
+                value={productDetails.price}
                 className="border w-[50%] pl-2 rounded-lg"
                 onChange={(e) => {
                   setProductDetails({
@@ -80,6 +83,7 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
               <label htmlFor="">Stock:</label>
               <input
                 type="number"
+                value={productDetails.stock}
                 className="border w-[50%] pl-2 rounded-lg"
                 onChange={(e) => {
                   setProductDetails({
@@ -105,7 +109,9 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
         >
           <button
             onClick={() => {
-              console.log("Add Product");
+              console.log("Add Product",productDetails)
+              setProductDetails({...productDetails, price: ""})
+              ;
             }}
             className="border-2 border-green-700 py-1 px-2 rounded-xl text-green-700 text-sm hover:text-white hover:bg-green-700 hover:scale-110 duration-500"
           >
@@ -126,22 +132,7 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
   );
 
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-    
-  //   try {
-  //     await fetch('/api/add-product', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({productDetails})
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-    
-  // }
+
 
   function closeDialog() {
     setShowAddDialog(false);

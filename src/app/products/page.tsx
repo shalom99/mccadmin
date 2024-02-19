@@ -1,10 +1,9 @@
 
 import ProductsTable from "./components/ProductsTable";
-
 import AddProduct from "./components/AddProduct";
 import { getProducts } from "@/actions/getProducts";
 
-
+export const dynamic = "force-dynamic"
 
 
 export default async function ProductsPage({}) {
