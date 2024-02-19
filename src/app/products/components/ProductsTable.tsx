@@ -41,7 +41,7 @@ type ProductsTableProps = {
 
 
 const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
-//   console.log(products[0]);
+  console.log(products[0]);
 
   const [selectedProduct, setSelectedProduct ] = useState({})
   const [showEditDialog, setShowEditDialog] = useState(false) 

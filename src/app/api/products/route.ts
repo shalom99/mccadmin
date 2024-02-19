@@ -1,20 +1,19 @@
+import { prisma } from "@/lib/prismadb"
 
-import { prisma } from "@/lib/prismadb";
-import { NextResponse } from "next/server"
+export async function GET(request: Request) {
 
-export async function GET(){
-    const products =  await prisma.products.findMany();
+    const res = await prisma.products.findMany();
+   
+    const newProducts = await convertPricesToString(res)
+    console.log("api",newProducts)
 
-     const newProducts = await convertPricesToString(products);
+    return Response.json({res})
+  }
 
-    return NextResponse.json({newProducts})
-}
 
-async function convertPricesToString(productsArray: any) {
+  async function convertPricesToString(productsArray: any) {
     for (let i = 0; i < productsArray.length; i++) {
       productsArray[i].price = productsArray[i].price.toFixed(2);
     }
     return productsArray;
-  }
-  
-  
+   }
