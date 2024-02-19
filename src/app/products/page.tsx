@@ -4,12 +4,21 @@ import ProductsTable from "./components/ProductsTable";
 import AddProduct from "./components/AddProduct";
 import { prisma } from "@/lib/prismadb";
 
+export const dynamic = "force-dynamic"
+
 
 async function convertPricesToString(productsArray: any) {
   for (let i = 0; i < productsArray.length; i++) {
     productsArray[i].price = productsArray[i].price.toFixed(2);
   }
   return productsArray;
+ }
+
+ async function getProducts (){
+  const products =  await prisma.products.findMany();
+  console.log("products", products)
+  const newProducts = await convertPricesToString(products);
+  return newProducts;
  }
 
 
@@ -22,17 +31,16 @@ export default async function ProductsPage({}) {
 
   // console.log(response)
 
-  const products =  await prisma.products.findMany();
-  console.log("products", products)
-  const newProducts = await convertPricesToString(products);
-  console.log(newProducts)
+  const fetchProducts = await getProducts();
+
+
 
 
   return (
     <div className="flex justify-center pt-10 px-10">
       <div className="w-[1303px] flex flex-col gap-y-5">
         <h1 className="text-3xl font-semibold">Products</h1>
-        <ProductsTable products={newProducts} /> 
+        <ProductsTable products={fetchProducts} /> 
         <div className="flex justify-end">
           <AddProduct />
      
