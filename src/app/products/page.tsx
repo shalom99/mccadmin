@@ -1,7 +1,8 @@
 
 import ProductsTable from "./components/ProductsTable";
 import AddProduct from "./components/AddProduct";
-import { getProducts } from "@/actions/getProducts";
+import { getProducts } from "@/actions/ProductStore";
+
 
 export const dynamic = "force-dynamic"
 

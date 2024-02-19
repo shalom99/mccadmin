@@ -1,7 +1,7 @@
 "use client";
 import { FC, useState } from "react";
 import { MdClose } from "react-icons/md";
-import { deleteProduct } from "@/actions/Store";
+import { deleteProduct } from "@/actions/ProductStore";
 
 type DeleteProductDialogProps = {
   product: any;

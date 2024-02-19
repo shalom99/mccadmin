@@ -1,4 +1,5 @@
 "use client";
+import { addProduct as createProduct} from "@/actions/ProductStore";
 import { FC, useState } from "react";
 import { MdClose } from "react-icons/md";
 
@@ -7,18 +8,19 @@ type AddProductDialogProps = {
   setShowAddDialog: (showAddDialog: boolean) => void;
 };
 
+const default_product = {
+  name: "",
+  description: "",
+  price: "",
+  stock: 0,
+  image: "",
+}
+
 const AddProductDialog: FC<AddProductDialogProps> = ({
   showAddDialog,
   setShowAddDialog,
 }) => {
-  const [productDetails, setProductDetails] = useState({
-    name: "",
-    description: "",
-    price: "",
-    stock: 0,
-    image: "",
-  });
-
+  const [productDetails, setProductDetails] = useState(default_product);
 
 
   if (!showAddDialog) {
@@ -109,9 +111,9 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
         >
           <button
             onClick={() => {
-              console.log("Add Product",productDetails)
-              setProductDetails({...productDetails, price: ""})
-              ;
+              createProduct(productDetails)
+              setShowAddDialog(false)
+              setProductDetails(default_product)
             }}
             className="border-2 border-green-700 py-1 px-2 rounded-xl text-green-700 text-sm hover:text-white hover:bg-green-700 hover:scale-110 duration-500"
           >
@@ -124,15 +126,17 @@ const AddProductDialog: FC<AddProductDialogProps> = ({
             Close
           </button>
         </div>
-        {/* <p>
-          {JSON.stringify(productDetails)}
-        </p> */}
+
       </div>
     </div>
   );
 
 
-
+  function handleAddProduct(){
+      // createProduct(productDetails)
+      // setShowAddDialog(false)
+      // console.log("success")
+  }
 
   function closeDialog() {
     setShowAddDialog(false);

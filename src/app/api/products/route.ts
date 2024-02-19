@@ -1,9 +1,7 @@
 import { prisma } from "@/lib/prismadb"
 
 export async function GET(request: Request) {
-
     const res = await prisma.products.findMany();
-   
     const newProducts = await convertPricesToString(res)
     console.log("api",newProducts)
 
