@@ -2,7 +2,9 @@
 import { updateProduct } from "@/actions/ProductStore";
 import { FC, useState } from "react";
 import { MdClose } from "react-icons/md";
-import { CldImage } from 'next-cloudinary';
+import { CldImage } from "next-cloudinary";
+import { CldUploadButton } from "next-cloudinary";
+import { CiEdit } from "react-icons/ci";
 
 type EditProductDialogProps = {
   product: any;
@@ -20,42 +22,43 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
   return (
     <div className="fixed inset-0  flex items-center justify-center z-50 backdrop-blur-sm ">
       <div className="w-[500px] bg-white border flex flex-col rounded-lg">
-        <div id="dialogHeader" className="w-full flex justify-end p-2">
+        <div id="dialogHeader" className="w-full flex justify-between p-2 border-b">
+          <h3 className="font-bold">Update Product</h3>
           <button onClick={closeDialog}>
             <MdClose
               size={25}
-              className="border rounded-xl p-1 hover:bg-black hover:text-white duration-500"
+              className="rounded-full hover:bg-black hover:text-white duration-500"
             />
           </button>
         </div>
-        <div id="dialogBody" className="flex flex-col pb-2 px-5 gap-y-2">
-          <div className="flex gap-x-5">
+        <div id="dialogBody" className="flex flex-col py-2 px-5 gap-y-2">
+          <div className="flex items-center gap-x-5">
             <label htmlFor="" className="text-sm">
               Item ID #:
             </label>
-            <p className="text-sm">{product.product_id}</p>
+            <p className="text-sm py-1">{product.product_id}</p>
           </div>
-          <div className="flex gap-x-5">
+          <div className="flex items-center gap-x-5">
             <label htmlFor="" className="text-sm">
               Name:
             </label>
             <input
               type="text"
               value={mockProduct.product_name}
-              className="border rounded-lg pl-2 text-sm"
+              className="border rounded-lg pl-2 py-1 text-sm"
               onChange={(e) =>
                 setMockProduct({ ...mockProduct, product_name: e.target.value })
               }
             />
           </div>
-          <div className="flex gap-x-5">
+          <div className="flex items-center gap-x-5">
             <label htmlFor="" className="text-sm">
               Description:
             </label>
             <input
               type="text"
               value={mockProduct.description}
-              className="border rounded-lg pl-2 text-sm"
+              className="border rounded-lg pl-2 py-1 text-sm"
               onChange={(e) =>
                 setMockProduct({ ...mockProduct, description: e.target.value })
               }
@@ -72,7 +75,7 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
                 onChange={(e) =>
                   setMockProduct({ ...mockProduct, price: e.target.value })
                 }
-                className="border w-[50%] rounded-lg pl-2 text-sm"
+                className="border w-[50%] rounded-lg pl-2 py-1 text-sm"
               />
             </div>
             <div className="w-[50%] flex items-center gap-x-5">
@@ -88,32 +91,39 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
                     quantity_in_stock: e.target.value,
                   })
                 }
-                className="border w-[50%] rounded-lg pl-2 text-sm"
+                className="border w-[50%] rounded-lg pl-2 py-1 text-sm"
               />
             </div>
           </div>
 
-          <div className="flex gap-x-5 ">
-            <div>
-              <label htmlFor="" className="text-sm">
-                Image:
-              </label>
-              <img src="" alt="" className="border w-[100px] h-[100px] my-2" />
+          <div className="flex gap-x-5 py-2">
+            <div className="relative">
+  
 
-              <CldImage
-                width="960"
-                height="600"
-                src="https://res.cloudinary.com/dhvo8k1o2/image/upload/v1685542399/j3mddwzxl7l7tj6qqoxn.webp"
-                sizes="100vw"
-                alt="Description of my image"
-              />
-              <input type="file" className="text-sm" />
+              <div className="outline-red-500 group">
+                <CldImage
+                  width="960"
+                  height="600"
+                  src="https://res.cloudinary.com/dhvo8k1o2/image/upload/v1685542399/j3mddwzxl7l7tj6qqoxn.webp"
+                  sizes="(max-width: 640px) 100vw"
+                  alt="Description of my image"
+                  className="group-hover:brightness-50 duration-500"
+                />
+               
+
+                <CldUploadButton
+                  uploadPreset="ydkdgspf"
+                  className="absolute bottom-0 right-0 m-auto z-40 border-blue-500"
+                >
+                  <CiEdit size={75} className="group-hover:text-white duration-500" />
+                </CldUploadButton>
+              </div>
             </div>
           </div>
         </div>
         <div
           id="dialogFooter"
-          className="pb-10 px-5 flex justify-center gap-x-5"
+          className="pb-5 px-5 flex justify-center gap-x-5"
         >
           <button
             onClick={() => {
