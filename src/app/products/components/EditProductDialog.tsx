@@ -5,6 +5,7 @@ import { MdClose } from "react-icons/md";
 import { CldImage } from "next-cloudinary";
 import { CldUploadButton } from "next-cloudinary";
 import { CiEdit } from "react-icons/ci";
+import toast from "react-hot-toast";
 
 type EditProductDialogProps = {
   product: any;
@@ -21,7 +22,7 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
 
   return (
     <div className="fixed inset-0  flex items-center justify-center z-50 backdrop-blur-sm ">
-      <div className="w-[500px] bg-white border flex flex-col rounded-lg">
+      <div className="w-[600px] bg-white border flex flex-col rounded-lg">
         <div id="dialogHeader" className="w-full flex justify-between p-2 border-b">
           <h3 className="font-bold">Update Product</h3>
           <button onClick={closeDialog}>
@@ -75,7 +76,7 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
                 onChange={(e) =>
                   setMockProduct({ ...mockProduct, price: e.target.value })
                 }
-                className="border w-[50%] rounded-lg pl-2 py-1 text-sm"
+                className="border w-[50%] rounded-lg pl-2 pr-1 py-1 text-sm"
               />
             </div>
             <div className="w-[50%] flex items-center gap-x-5">
@@ -91,7 +92,7 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
                     quantity_in_stock: e.target.value,
                   })
                 }
-                className="border w-[50%] rounded-lg pl-2 py-1 text-sm"
+                className="border w-[50%] rounded-lg pl-2 pr-1 py-1 text-sm"
               />
             </div>
           </div>
@@ -110,7 +111,6 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
                   className="group-hover:brightness-50 duration-500"
                 />
                
-
                 <CldUploadButton
                   uploadPreset="ydkdgspf"
                   className="absolute bottom-0 right-0 m-auto z-40 border-blue-500"
@@ -128,8 +128,11 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
           <button
             onClick={() => {
               updateProduct(mockProduct);
-              setSelectedProduct({});
-              setShowDialog(false);
+
+
+              // toast.success("Success")
+              // setSelectedProduct({});
+              // setShowDialog(false);
             }}
             className="border-2 border-green-700 py-1 px-2 rounded-xl text-green-700 text-sm hover:text-white hover:bg-green-700 hover:scale-110 duration-500"
           >

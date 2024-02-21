@@ -41,7 +41,7 @@ type ProductsTableProps = {
 
 
 const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
-  console.log(products[0]);
+  // console.log(products[0]);
 
   const [selectedProduct, setSelectedProduct ] = useState({})
   const [showEditDialog, setShowEditDialog] = useState(false) 
@@ -68,7 +68,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
         </TableHeader>
         <TableBody>
           {products.map((item: productType, index: number) => (
-            <>
+        
               <TableRow key={item.product_id}>
                 <TableCell>
                   <input type="checkbox" />
@@ -92,7 +92,7 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
                   </div>
                 </TableCell>
               </TableRow>
-            </>
+          
           ))}
         </TableBody>
       </Table>
@@ -101,8 +101,6 @@ const ProductsTable: FC<ProductsTableProps> = ({ products }) => {
 
       {showDeleteDialog && <DeleteProductDialog product={selectedProduct} setShowDialog={setShowDeleteDialog} setSelectedProduct={setSelectedProduct}/>}
                
-            {/* <p>{JSON.stringify(selectedProduct)}</p> */}
-
 
     </Dialog>
   );

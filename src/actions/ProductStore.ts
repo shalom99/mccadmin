@@ -4,16 +4,17 @@ import { prisma } from "@/lib/prismadb";
 import { convertPricesToString } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import toast from "react-hot-toast";
 
 
 export async function getProducts() {
-  const products =  await prisma.products.findMany();
+  const products = await prisma.products.findMany();
   // console.log("products", products)
   const newProducts = await convertPricesToString(products);
   return newProducts;
- }
+}
 
- export async function addProduct(productData: any) {
+export async function addProduct(productData: any) {
 
   try {
     const addItem = await prisma.products.create({
@@ -40,18 +41,13 @@ export async function getProducts() {
     throw e
   }
 
- }
+}
 
 
 export async function updateProduct(newProductData: any) {
-  const product = await prisma.products.findUnique({
-    where: {
-      product_id: newProductData.product_id,
-    },
-  });
 
   try {
-    const setUppdateProduct = await prisma.products.update({
+    await prisma.products.update({
       where: {
         product_id: newProductData.product_id,
       },
@@ -64,8 +60,10 @@ export async function updateProduct(newProductData: any) {
       },
     });
     revalidatePath("/products");
-  }catch(e){
-    console.log("Error updating", e);
+    return { message: 'Successfully updated product' }
+
+  } catch (e) {
+    return { message: 'Database Error: Failed to Update Product'}
   }
 
 
