@@ -70,6 +70,8 @@ export async function updateProduct(newProductData: any) {
 }
 
 export async function deleteProduct(productId: number) {
+   throw new Error('Failed to Delete Invoice');
+
   try {
     await prisma.products.delete({
       where: {
@@ -77,7 +79,9 @@ export async function deleteProduct(productId: number) {
       },
     });
     revalidatePath("/products");
+    return { message: 'Deleted Product'}
+
   } catch (err) {
-    console.log("Error Deleting", err);
+    return { message: 'Database Error: Failed to delete Product'}
   }
 }
