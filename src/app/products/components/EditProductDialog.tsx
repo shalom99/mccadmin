@@ -21,7 +21,7 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
   const [mockProduct, setMockProduct] = useState(product);
 
   return (
-    <div className="fixed inset-0  flex items-center justify-center z-50 backdrop-blur-sm ">
+    <div className="fixed inset-0  flex items-center justify-center z-50 backdrop-blur-sm bg-blue-500">
       <div className="w-[600px] bg-white border flex flex-col rounded-lg">
         <div id="dialogHeader" className="w-full flex justify-between p-2 border-b">
           <h3 className="font-bold">Update Product</h3>
@@ -105,10 +105,11 @@ const EditProductDialog: FC<EditProductDialogProps> = ({
                 <CldImage
                   width="960"
                   height="600"
-                  src="https://res.cloudinary.com/dhvo8k1o2/image/upload/v1685542399/j3mddwzxl7l7tj6qqoxn.webp"
-                  sizes="(max-width: 640px) 100vw"
+                  // src="https://res.cloudinary.com/dhvo8k1o2/image/upload/v1685542399/j3mddwzxl7l7tj6qqoxn.webp"
+                  src="https://res.cloudinary.com/dhvo8k1o2/image/upload/v1708562982/customcaps/stock/tfdbfiebctygebripg6i.jpg"
+                  sizes="100vw"
                   alt="Description of my image"
-                  className="group-hover:brightness-50 duration-500"
+                  className="h-[300px] aspect-[3/2] group-hover:brightness-50 duration-500"
                 />
                
                 <CldUploadButton
