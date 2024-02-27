@@ -5,6 +5,7 @@ import { convertPricesToString } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import toast from "react-hot-toast";
+import { z } from 'zod';
 
 
 export async function getProducts() {
@@ -28,13 +29,20 @@ export async function addProduct(productData: any) {
       }
     })
 
+    return {
+      status: 'success', 
+      message: 'Succesfully added new product'
+    }
+
+    
+
     revalidatePath("/products");
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner
       if (e.code === 'P2002') {
         console.log(
-          'There is a unique constraint violation, a new user cannot be created with this email'
+          'There is a unique constraint violation, a new product cannot be created with this email'
         )
       }
     }
@@ -43,34 +51,55 @@ export async function addProduct(productData: any) {
 
 }
 
+const UpdateForm = z.object({
+  productId: z.coerce.number(),
+  productName: z.string(),
+  productDescription: z.string(),
+  price: z.coerce.number(),
+  stock: z.coerce.number(),
+});
 
-export async function updateProduct(newProductData: any) {
+
+export async function updateProduct(formData: FormData) {
+
+  const { productId, productName, productDescription, price, stock} = UpdateForm.parse({
+    productId: formData.get('productId'),
+    productName: formData.get('productName'),
+    productDescription: formData.get('productDescription'),
+    price: formData.get('productPrice'),
+    stock: formData.get('productStock'),
+  });
+
+  const priceInCents = price * 100;
+
 
   try {
     await prisma.products.update({
       where: {
-        product_id: newProductData.product_id,
+        product_id: productId,
       },
       data: {
-        product_name: newProductData.product_name,
-        description: newProductData.description,
-        price: newProductData.price,
-        quantity_in_stock: newProductData.quantity_in_stock,
-        image_url: newProductData.image_url,
+        product_name: productName,
+        description: productDescription,
+        price: priceInCents,
+        quantity_in_stock: stock
       },
     });
     revalidatePath("/products");
-    return { message: 'Successfully updated product' }
+    return {
+      status: 'success', 
+      message: 'Updated product'
+    }
 
   } catch (e) {
-    return { message: 'Database Error: Failed to Update Product'}
+    return { message: `Database Error: Failed to Update Product. ${e}`}
   }
 
 
 }
 
 export async function deleteProduct(productId: number) {
-   throw new Error('Failed to Delete Invoice');
+  //  throw new Error('Failed to Delete Invoice');
 
   try {
     await prisma.products.delete({
@@ -79,9 +108,31 @@ export async function deleteProduct(productId: number) {
       },
     });
     revalidatePath("/products");
-    return { message: 'Deleted Product'}
+    return {
+      status: 'success', 
+      message: 'Deleted Product'
+    }
 
   } catch (err) {
-    return { message: 'Database Error: Failed to delete Product'}
+    return { 
+      status: 'error', 
+      message: 'Database Error: Failed to delete Product'}
   }
 }
+
+
+
+
+// export async function getFullName(data: FormData) {
+//   // we're gonna put a delay in here to simulate some kind of data processing like persisting data
+//   await new Promise((resolve) => setTimeout(resolve, 1000));
+
+//   console.log("server action", data);
+  
+//   return {
+//     status: "success",
+//     message: `Welcome, ${data.get("firstName")} ${data.get("lastName")}!`,
+//   };
+// }
+
+

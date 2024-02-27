@@ -2,6 +2,7 @@
 import { FC, useState } from "react";
 import { MdClose } from "react-icons/md";
 import { deleteProduct } from "@/actions/ProductStore";
+import toast from "react-hot-toast";
 
 type DeleteProductDialogProps = {
   product: any;
@@ -39,7 +40,20 @@ const DeleteProductDialog: FC<DeleteProductDialogProps> = ({
         >
           <button
             className="text-sm border border-red-700 text-red-700  hover:bg-red-700 py-1 px-2 rounded-xl hover:text-white hover:scale-110 duration-500"
-            onClick={handleDeleteProduct}
+            onClick={ async () => {
+              const { message } = await deleteProduct(product.product_id)
+              if( message === "Deleted Product") {
+                toast.success(message)
+
+              }else{
+                toast.error(message)
+              }
+
+              setSelectedProduct({});
+              setShowDialog(false);
+
+            }
+            }
           >
             Delete
           </button>
@@ -57,8 +71,7 @@ const DeleteProductDialog: FC<DeleteProductDialogProps> = ({
 
   function handleDeleteProduct(){
     deleteProduct(product.product_id);
-    setSelectedProduct({});
-    setShowDialog(false);
+
   }
 };
 
